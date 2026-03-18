@@ -11,6 +11,9 @@ import SiteView from "./pages/SiteView";
 import Editor from "./pages/Editor";
 import PaymentSuccess from "./pages/PaymentSuccess";
 
+// ✅ ADD HERO
+import Hero from "./components/sections/Hero";
+
 const token = localStorage.getItem("token");
 
 if (token) {
@@ -43,7 +46,6 @@ function MainApp() {
   useEffect(() => {
     syncAuth();
 
-    // 🔥 auto update navbar when localStorage changes
     window.addEventListener("storage", syncAuth);
 
     return () => {
@@ -62,19 +64,16 @@ function MainApp() {
     <>
       {/* ================= NAVBAR ================= */}
       <div style={navStyle}>
-
         {loggedIn ? (
           <>
             <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
 
-            {/* ⭐ PREMIUM ONLY CREATE */}
             {premium && (
               <Link to="/create" style={linkStyle}>Create</Link>
             )}
 
             <Link to="/profile" style={linkStyle}>Profile</Link>
 
-            {/* 👑 PLAN STATUS */}
             {premium ? (
               <span style={premiumStyle}>👑 Premium</span>
             ) : (
@@ -93,8 +92,9 @@ function MainApp() {
             <Link to="/register" style={linkStyle}>Register</Link>
           </>
         )}
-
       </div>
+
+
 
       {/* ================= ROUTES ================= */}
       <Routes>
@@ -105,7 +105,7 @@ function MainApp() {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/site/:id" element={<SiteView />} />
-        <Route path="/editor/:id" element={<Editor/>}/>
+        <Route path="/editor/:id" element={<Editor />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
       </Routes>
     </>

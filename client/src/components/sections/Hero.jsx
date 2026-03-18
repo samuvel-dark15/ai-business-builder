@@ -1,14 +1,13 @@
-import heroImg from "../../assets/1img.avif";
-
 export default function Hero({ data }) {
 
-  if (!data) return null;
+  // ✅ FORCE IMAGE (ignore backend for now)
+  const image = "/1img.avif";
 
   return (
     <section
       style={{
         height: "80vh",
-        backgroundImage: `url(${heroImg})`, // ✅ comma added
+        backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",
@@ -24,8 +23,13 @@ export default function Hero({ data }) {
           textAlign: "center"
         }}
       >
-        <h1 style={{ fontSize: "50px" }}>{data.title}</h1>
-        <p style={{ fontSize: "22px" }}>{data.subtitle}</p>
+        <h1 style={{ fontSize: "50px" }}>
+          {data?.title || "AI Business Builder"}
+        </h1>
+
+        <p style={{ fontSize: "22px" }}>
+          {data?.subtitle || "Build your startup"}
+        </p>
       </div>
     </section>
   );

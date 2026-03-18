@@ -72,7 +72,7 @@ export default function SiteView() {
   const heroData = {
     title: site.heroTitle || "Welcome",
     subtitle: site.heroSubtitle || "Your business website",
-    image: site.heroImage || ""
+    image: site.heroImage || "/1img.avif" // ✅ fallback added
   };
 
   const servicesData = Array.isArray(site.services) ? site.services : [];
