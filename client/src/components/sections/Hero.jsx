@@ -9,7 +9,7 @@ export default function Hero({ data }) {
     <section
       style={{
         height: "80vh",
-        backgroundImage: `url(${image})`,
+        backgroundImage: "url('/1img.avif')", // ✅ comma added
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",
