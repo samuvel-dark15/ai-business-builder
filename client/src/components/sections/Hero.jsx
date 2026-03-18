@@ -1,15 +1,14 @@
+import heroImg from "../../assets/1img.avif";
+
 export default function Hero({ data }) {
 
   if (!data) return null;
-
-  // ✅ fallback image (SAFE FIX)
-  const image = data.image || "/1img.avif";
 
   return (
     <section
       style={{
         height: "80vh",
-        backgroundImage: "url('/1img.avif')", // ✅ comma added
+        backgroundImage: `url(${heroImg})`, // ✅ comma added
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",
