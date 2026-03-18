@@ -1,74 +1,74 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+function Login() {
 
-const params = new URLSearchParams(window.location.search);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const registered = params.get("registered");
+  const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    email: "",
-    password: ""
-  });
-
-  const change = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const submit = async e => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       const res = await axios.post(
         "http://localhost:5000/api/login",
-        form
+        { email, password }
       );
 
+      // ✅ STORE AUTH DATA
       localStorage.setItem("token", res.data.token);
+      axios.defaults.headers.common["Authorization"] =
+  `Bearer ${res.data.token}`;
+      localStorage.setItem("premium", res.data.premium);
+      localStorage.setItem("name", res.data.name);
+      localStorage.setItem("avatar", res.data.avatar || "");
 
-      alert("Login successful");
+      alert("Login Successful 🚀");
 
-      window.location = "/";
+      navigate("/dashboard");
 
     } catch (err) {
       alert(err.response?.data?.msg || "Login failed");
     }
   };
 
-  return (
-    <div className="container">
+return (
+  <div className="center-page">
 
-      <h1>Login</h1>
-      
-      {registered && (
-  <p style={{ color: "#38bdf8" }}>
-    Registration successful. Please login.
-  </p>
-)}
+    <div className="glass card" style={{ width: "350px" }}>
 
+      <h2 style={{ textAlign: "center" }}>Login</h2>
 
-      <form className="form" onSubmit={submit}>
+      <input
+        className="input"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={change}
-          required
-        />
+      <input
+        className="input"
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={change}
-          required
-        />
-
-        <button className="btn">Login</button>
-
-      </form>
+      <button
+        className="btn"
+        style={{ width: "100%", marginTop: "15px" }}
+        onClick={handleLogin}
+      >
+        Login
+      </button>
 
     </div>
-  );
+
+  </div>
+);
 }
+
+export default Login;

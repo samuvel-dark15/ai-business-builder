@@ -15,38 +15,58 @@ export default function Register() {
 
   const submit = async e => {
     e.preventDefault();
-try{
-    await axios.post("http://localhost:5000/api/register", form);
-     window.location = "/login?registered=true";
 
-  window.location = "/login";
+    try {
+      await axios.post("http://localhost:5000/api/register", form);
 
-} catch (err) {
-  alert(err.response.data.msg || "Register error");
-}
-  }
+      window.location = "/login?registered=true";
+
+    } catch (err) {
+      alert(err.response?.data?.msg || "Register error");
+    }
+  };
+
   return (
-    <div className="container">
+    <div className="center-page">
+      <div className="glass card" style={{ width: "350px" }}>
+        <h2 style={{ textAlign: "center" }}>Register</h2>
 
-      <h1>Register</h1>
+        <form onSubmit={submit}>
+          <input
+            className="input"
+            name="name"
+            placeholder="Name"
+            value={form.name}
+            onChange={change}
+          />
 
-      <form className="form" onSubmit={submit}>
+          <input
+            className="input"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={change}
+          />
 
-        <input name="name" placeholder="Name" onChange={change} />
+          <input
+            className="input"
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={change}
+          />
 
-        <input name="email" placeholder="Email" onChange={change} />
+          <button
+            className="btn"
+            style={{ width: "100%", marginTop: "15px" }}
+            type="submit"
+          >
+            Register
+          </button>
+        </form>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={change}
-        />
-
-        <button className="btn">Register</button>
-
-      </form>
-
+      </div>
     </div>
   );
 }
