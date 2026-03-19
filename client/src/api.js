@@ -2,10 +2,7 @@ import axios from "axios";
 
 /* ================= AXIOS INSTANCE ================= */
 const API = axios.create({
-  baseURL:
-    window.location.hostname === "localhost"
-      ? "http://localhost:5000" // 🖥️ local dev
-      : "https://ai-business-api.onrender.com", // 🌐 production (CHANGE THIS)
+  baseURL: "https://ai-business-api.onrender.com",
 });
 
 /* ================= REQUEST INTERCEPTOR ================= */
